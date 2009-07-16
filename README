@@ -1,0 +1,86 @@
+NAME
+     watchmen - watch daemons and restart
+
+SYNOPSIS
+     watchmen.pl [--configkey=configvalue] [-svcname__svckey=svcvalue] [command[=param]] ...
+     where command:
+     check[=svc] stop[=svc] restart[=svc] list avail help
+
+EXAMPLES
+     # check and restart default services
+     watchmen.pl
+
+     #list of enabled services
+     watchmen.pl list
+
+     #list of available services
+     watchmen.pl avail
+
+     # full log
+     watchmen.pl --log_all
+
+     # reatart apache if more than 5 httpd proc, dont check sshd, load custom config
+     watchmen.pl -apache__max_proc=5 -sshd__enable=0 --config=/path/to/my/config
+
+     #check only 2 services with log
+     watchmen.pl check=named check=mysql --log_all 
+
+     # stop all EXCEPT sshd
+     watchmen.pl stop
+
+INSTALL
+     recommended libs: LWP, URI
+     freebsd: cd /usr/ports/www/p5-libwww && make install clean
+     or 
+     perl -MCPAN -e "install LWP, URI"
+
+
+     cp watchmen.pl /usr/local/bin/watchmen ; cp watchmen.conf.pl.dist /usr/local/etc/watchmen.conf.pl
+     edit /usr/local/etc/watchmen.conf.pl
+
+     run watchmen twice. second run must be quiet (all ok) if not - edit config
+
+     add to crontab:
+     echo "*       *       *       *       *       root    /usr/local/bin/watchmen" >> /etc/crontab
+
+CONFIGURE
+     by default some of default services enabled
+
+     read [and edit] watchmen.conf.pl
+
+     you can configure services from /etc/rc.conf[.local] file[s]:
+     for config string  $svc{service}{key} = 'value'; write to rc.conf:
+     service_key="value"
+     example:
+     apache22_http="81" 
+     # or define new service, with one of correct keys: process tcp udp http https :
+     nginx_enable="YES"
+     nginx_process="nginx"
+     nginx_http="8001"
+     nginx_http_check="<html"
+
+TODO
+     self pid & check
+     /tmp/socketfile check
+     mail errors
+     various handlers
+     rsync --daemon
+     more default ports [tested!]
+     ?.pid usage?
+
+COPYRIGHT
+    watchmen Copyright (C) 2008-2009 Oleg Alexeenkov proler@gmail.com
+
+    This program is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation, either version 3 of the License, or (at your
+    option) any later version.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+    Public License for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program. If not, see <http://www.gnu.org/licenses/>.
+
