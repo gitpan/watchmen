@@ -35,8 +35,8 @@ INSTALL
      perl -MCPAN -e "install LWP, URI"
 
 
-     cp watchmen.pl /usr/local/bin/watchmen ; cp watchmen.conf.pl.dist /usr/local/etc/watchmen.conf.pl
-     edit /usr/local/etc/watchmen.conf.pl
+     cp watchmen.pl /usr/local/bin/watchmen ; cp watchmen.conf.dist /usr/local/etc/watchmen.conf
+     edit /usr/local/etc/watchmen.conf
 
      run watchmen twice. second run must be quiet (all ok) if not - edit config
 
@@ -46,7 +46,7 @@ INSTALL
 CONFIGURE
      by default some of default services enabled
 
-     read [and edit] watchmen.conf.pl
+     read [and edit] watchmen.conf
 
      you can configure services from /etc/rc.conf[.local] file[s]:
      for config string  $svc{service}{key} = 'value'; write to rc.conf:

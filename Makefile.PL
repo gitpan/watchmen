@@ -3,10 +3,10 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 %_ = (
   NAME          => 'watchmen',
-  VERSION_FROM  => 'watchmen.pl',
+  VERSION_FROM  => 'watchmen',
   INSTALLDIRS   => 'bin',
   PREREQ_PM     => { 'Time::HiRes' => '0', 'LWP::UserAgent' => '0', 'URI::URL' => '0', },
-  ABSTRACT_FROM => 'watchmen.pl',
+  EXE_FILES               => [ 'watchmen' ],
 );
 WriteMakefile(%_);
 
